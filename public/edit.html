@@ -170,7 +170,7 @@
         Item: tr.querySelector('input[name="item"]').value,
         Price: tr.querySelector('input[name="price"]').value
       }));
-      fetch('/save-menu', {
+      fetch('/menu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(items)
