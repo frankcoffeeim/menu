@@ -3,6 +3,5 @@ compatibility_date = "2023-01-01"
 pages_build_output_dir = "public"
 
 [[kv_namespaces]]
-binding = "MENU"
-id = "a63f1fb0b3f3478e9e3c99601546d3b4"
-preview_id = "a63f1fb0b3f3478e9e3c99601546d3b4"
+binding = "MENU_STORE"
+id = "499dd470c8d14f4f9bf95b6fe90e21a0"
