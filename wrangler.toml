@@ -8,4 +8,5 @@ entry-point = "."
 
 [[kv_namespaces]]
 binding = "MENU"
-id = "placeholder_for_now"
+id = "a63f1fb0b3f3478e9e3c99601546d3b4"
+preview_id = "a63f1fb0b3f3478e9e3c99601546d3b4"
