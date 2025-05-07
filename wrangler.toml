@@ -1,9 +1,6 @@
 name = "menu"
 compatibility_date = "2023-01-01"
-
-[site]
-bucket = "./public"
-
+pages_build_output_dir = "./public"
 
 [[kv_namespaces]]
 binding = "MENU"
