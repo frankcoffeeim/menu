@@ -91,7 +91,7 @@
     const credit = document.getElementById('credit');
     let target = left;
 
-    fetch('/menu.json')
+    fetch('/menu')
       .then(res => res.json())
       .then(data => {
         const rows = Array.isArray(data) ? data : data.menu || [];
