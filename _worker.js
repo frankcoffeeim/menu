@@ -3,11 +3,12 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/load-menu") {
-      const data = await env.MENU.get("data");
-      return new Response(data || "[]", {
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+  const raw = await env.MENU.get("data");
+  const value = raw && raw.trim().startsWith("[") ? raw : "[]";
+  return new Response(value, {
+    headers: { "Content-Type": "application/json" }
+  });
+}
 
     if (url.pathname === "/save-menu" && request.method === "POST") {
       const body = await request.text();
