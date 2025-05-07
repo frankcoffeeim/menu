@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frank Coffee</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: white;
+      color: #222;
+    }
+    .hero img {
+      width: 100%;
+      display: block;
+    }
+    .menu-section {
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .notification {
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .menu-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+    .menu-columns ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 1rem;
+      text-align: left;
+    }
+    .menu-columns li {
+      margin: 0.4rem 0;
+    }
+    .menu-columns li.section {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .footer-note {
+      margin-top: 2rem;
+    }
+    .footer-note p {
+      margin: 0.3rem 0;
+      font-size: 0.85rem;
+    }
+    .credit-line {
+      margin-top: 0.6rem;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <img src="bg.jpeg" alt="Coffee Shop Background" />
+  </div>
+  <div class="menu-section">
+    <div id="notification" class="notification"></div>
+    <h1>MENU</h1>
+    <div class="menu-columns">
+      <ul id="menu-left"></ul>
+      <ul id="menu-right"></ul>
+    </div>
+    <div id="info" class="footer-note"></div>
+    <p id="credit" class="credit-line"></p>
+  </div>
+
+  <script>
+    const left = document.getElementById('menu-left');
+    const right = document.getElementById('menu-right');
+    const notification = document.getElementById('notification');
+    const info = document.getElementById('info');
+    const credit = document.getElementById('credit');
+    let target = left;
+
+    fetch('/load-menu')
+      .then(res => res.json())
+      .then(data => {
+        const rows = Array.isArray(data) ? data : data.menu || [];
+
+        rows.forEach(row => {
+          const item = (row.Item || '').trim().toLowerCase();
+          const value = row.Price || '';
+
+          if (item === 'notify') {
+            notification.textContent = value;
+          } else if (item === 'info') {
+            info.innerHTML = value.split('/').map(v => `<p>${v.trim()}</p>`).join('');
+          } else if (item === 'credit') {
+            credit.textContent = value;
+          } else if (item === 'split') {
+            target = right;
+          } else {
+            const li = document.createElement('li');
+            if (item === 'section') {
+              li.textContent = value;
+              li.classList.add('section');
+            } else {
+              li.textContent = `${row.Item} — ${row.Price}`;
+            }
+            target.appendChild(li);
+          }
+        });
+      })
+      .catch(err => {
+        console.error("Menu load failed:", err);
+      });
+  </script>
+</body>
+</html>
